@@ -18,11 +18,14 @@
             }
         ],
         "paths": {
+            
             "@assets/*": ["./src/assets/*"],
             "@app/*": ["./src/app/*"],
             "@plugins/*": ["./src/plugins/*"],
             "@components/*": ["./src/components/*"],
-            "@helpers/*": ["./src/helpers/*"]
+            "@constants/*": ["./src/constants/*"],
+            "@helpers/*": ["./src/helpers/*"],
+            "@svg/*": ["./public/svg/*"],
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

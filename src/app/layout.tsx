@@ -16,7 +16,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <Provider>
-                <body>
+                <body style={{padding:"30px 70px"}}>
                     <Header />
                     <div>{children}</div>
                 </body>

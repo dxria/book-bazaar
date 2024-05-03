@@ -1,22 +1,39 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Link from "next/link";
 import React from "react";
+import NextImage from "next/image";
+import Logo from "@svg/logo.svg";
+import { SearchForm } from "./SearchForm/SearchForm";
 
 export default function Header() {
     return (
         <header
             style={{
-                height: "8vh",
                 width: "100%",
-                backgroundColor: "rgba(var(--red1), 1)",
-                color: "rgba(var(--white), 1)",
-                textAlign: "center",
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "space-between",
                 alignItems: "center",
-                fontFamily: "Prata",
                 fontSize: "32px",
+                // padding: "20px 40px",
             }}>
-            THE BOOKHUNT
+            <div
+                style={{
+                    fontWeight: "600",
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                }}>
+                <NextImage alt="" src={Logo} />
+                <Link
+                    href="/"
+                    style={{
+                        color: "rgba(var(--black), 1)",
+                        textDecoration: "none",
+                    }}>
+                    BookBazaar
+                </Link>
+            </div>
+            <SearchForm />{" "}
         </header>
     );
 }

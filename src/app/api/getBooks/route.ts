@@ -1,71 +1,94 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as cheerio from "cheerio";
+import { TBookstoreConstant, shopFuncDependencies } from "@constants/index";
+import { TBook } from "@plugins/types/booksTypes";
+import { extractPriceAndCurrency } from "@helpers/extractPriceAndCurrency";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
         const { search }: { search: string } = await req.json();
         let counter = 0;
-        const url = "https://www.yakaboo.ua/ua/search?q=".concat(search);
+        const returnArray: TBook[] = [];
 
-        const response = await fetch(url);
-        const html = await response.text();
-        const $ = cheerio.load(html);
+        await Promise.all(
+            Object.values(shopFuncDependencies).map(
+                async (bookstore: TBookstoreConstant) => {
+                    const url = bookstore.searchURL.concat(search);
 
-        const cards = $("div.category-card");
-        const baseUrl = "https://www.yakaboo.ua";
-        const foundUrls: any[] = [];
-        cards.each((i, el) => {
-            if (i < 2) {
-                const elLink = $(el).find("a").attr("href");
-                if (elLink) {
-                    foundUrls.push(baseUrl.concat(elLink));
-                }
-            }
-        });
-        const objs = await Promise.all(
-            Array.from(foundUrls, async (link) => {
-                const response = await fetch(link);
-                const html = await response.text();
-                const $ = cheerio.load(html);
-                const elImage = $(".slide__img").attr("src");
-                const elTitle = $(".main__header .base-product__title h1")
-                    .text()
-                    .trim();
-                const elAuthor = $(".main__header .base-product__author a")
-                    .text()
-                    .trim();
-                const elPrice = $(
-                    ".side .base-product__price .ui-price-display__main span:first-child",
-                )
-                    .text()
-                    .trim();
-                const elCurrency = $(
-                    ".side .base-product__price .ui-price-display__main .ui-price-display__currency",
-                )
-                    .text()
-                    .trim();
-                counter++;
-                return {
-                    id: counter,
-                    url: link,
-                    img: elImage,
-                    title: elTitle,
-                    author: elAuthor,
-                    price: +elPrice,
-                    currency: elCurrency,
-                };
-            }),
+                    // console.log(url);
+                    const response = await fetch(url);
+                    const html = await response.text();
+                    const $ = cheerio.load(html);
+
+                    const cards = $(bookstore.cardsClass);
+
+                    const baseUrl = bookstore.baseURL;
+
+                    const foundUrls: any[] = [];
+                    cards.each((i, el) => {
+                        if (i < 3) {
+                            const elLink = $(el)
+                                .find(bookstore.linkFinders.find)
+                                .attr(bookstore.linkFinders.attr);
+
+                            if (elLink) {
+                                if (elLink.startsWith("http")) {
+                                    foundUrls.push(elLink);
+                                } else {
+                                    foundUrls.push(baseUrl.concat(elLink));
+                                 
+                                }
+                            }
+                        }
+                    });
+                    const objs: TBook[] = await Promise.all(
+                        Array.from(foundUrls, async (link) => {
+                            const response = await fetch(link);
+                            const html = await response.text();
+                            const $ = cheerio.load(html);
+                            let elImage = $(bookstore.pageClasses.image).attr(
+                                bookstore.pageClasses.imageAttr,
+                            );
+                            const elTitle = $(bookstore.pageClasses.title)
+                                .text()
+                                .trim();
+                            const elAuthor = $(bookstore.pageClasses.author)
+                                .text()
+                                .trim();
+
+                            const price = $(bookstore.pageClasses.price)
+                                .text()
+                                .trim();
+                            counter++;
+                            if (elImage?.startsWith("/"))
+                                elImage = baseUrl.concat(elImage);
+
+                            return {
+                                id: counter,
+                                url: link,
+                                img: elImage,
+                                title: elTitle,
+                                author: elAuthor,
+                                price: extractPriceAndCurrency(price),
+
+                                currency: "грн",
+                                bookshop: {
+                                    name: bookstore.bookshop.name,
+                                    image: bookstore.bookshop.image,
+                                },
+                            };
+                        }),
+                    );
+
+                    returnArray.push(...objs);
+                },
+            ),
         );
+        // console.log(returnArray, "returnArray");
+        returnArray.sort((a, b) => a.price - b.price);
 
-        // console.log(objs, "url");
-
-        return NextResponse.json({ books: objs }, { status: 200 });
+        return NextResponse.json(returnArray, { status: 200 });
     } catch (error) {
         return NextResponse.json({ message: error }, { status: 500 });
     }
 }
-
-// const shopFuncDependencies = {
-//     yakaboo: yakabooBooks(),
-//     bookYe:
-// }
