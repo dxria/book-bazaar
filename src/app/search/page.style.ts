@@ -41,11 +41,11 @@ export const styles = {
                 borderRadius: "12px",
                 padding: "8px 20px",
                 fontWeight: 500,
-                width:"250px"
+                width: "250px",
             },
             genresBlock: {
                 display: "flex",
-                flexFlow: "column nowrap",
+                flexFlow: "row wrap",
                 gap: "10px",
             },
             genres: {
@@ -54,6 +54,7 @@ export const styles = {
                 padding: "8px 20px",
                 fontWeight: 500,
                 color: "rgba(var(--white), 1)",
+                width: "fit-content",
             },
         },
     },

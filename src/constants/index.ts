@@ -1,3 +1,4 @@
+import { TBookstoreConstant } from "@plugins/types/booksTypes";
 
 export const YakabooObj: TBookstoreConstant = {
     baseURL: "https://www.yakaboo.ua",
@@ -10,14 +11,12 @@ export const YakabooObj: TBookstoreConstant = {
     linkFinders: { find: "a", attr: "href" },
     pageClasses: {
         image: ".slide__img",
-        imageAttr:"src",
+        imageAttr: "src",
         title: ".main__header .base-product__title h1",
         author: ".main__header .base-product__author a",
         price: ".side .base-product__price .ui-price-display__main span",
     },
 };
-
-
 
 export const Bookish: TBookstoreConstant = {
     baseURL: "",
@@ -38,7 +37,8 @@ export const Bookish: TBookstoreConstant = {
 };
 export const Bookling: TBookstoreConstant = {
     baseURL: "https://bookling.ua",
-    searchURL: "https://bookling.ua/catalog/?s=%D0%9F%D0%BE%D1%88%D1%83%D0%BA&q=",
+    searchURL:
+        "https://bookling.ua/catalog/?s=%D0%9F%D0%BE%D1%88%D1%83%D0%BA&q=",
     bookshop: {
         name: "Bookling",
         image: "https://bookling.ua/upload/CNext/702/original_2_01.png",
@@ -54,10 +54,10 @@ export const Bookling: TBookstoreConstant = {
     },
 };
 
-
 export const Bukva: TBookstoreConstant = {
     baseURL: "https://bukva.ua",
-    searchURL: "https://bukva.ua/ua/search/index/?l=1&filter=Array&sort=default&page=1&search=",
+    searchURL:
+        "https://bukva.ua/ua/search/index/?l=1&filter=Array&sort=default&page=1&search=",
     bookshop: {
         name: "Буква",
         image: "https://bukva.ua/img/logo.png?1714717303",
@@ -70,7 +70,6 @@ export const Bukva: TBookstoreConstant = {
         title: ".bg_h1_small h1",
         author: "",
         price: ".price_value",
-      
     },
 };
 
@@ -92,37 +91,31 @@ export const NashFormat: TBookstoreConstant = {
     },
 };
 
-
-
-
-export type TBookstoreConstant = {
-    baseURL: string,
-    searchURL: string,
-    bookshop: {
-        name: string,
-        image: string,
-    },
-    cardsClass: string,
-    linkFinders: { find: string, attr: string },
-    pageClasses: {
-        image: string,
-        imageAttr:string;
-        title: string,
-        author: string,
-        price: string,
-    },
-}
-
 export const shopFuncDependencies = {
     yakaboo: YakabooObj,
     bukva: Bukva,
     Bookish: Bookish,
     Bookling: Bookling,
-    nashFormat: NashFormat
-}
+    nashFormat: NashFormat,
+};
 
-
-
+export const Goodreads = {
+    baseURL: "https://www.goodreads.com",
+    searchURL: "https://www.goodreads.com/search?ref=nav_sb_noss_l_14&q=",
+    bookTitleLink: ".bookTitle",
+    bookTitleLinkAttr: "href",
+    booksStars:
+        ".BookPageMetadataSection__ratingStats .RatingStatistics__rating",
+    bookGenres: ".BookPageMetadataSection__genreButton .Button__labelItem",
+    reviews: {
+        cards: ".ReviewCard",
+        img: ".ReviewerProfile__avatar img",
+        imgAttr: "src",
+        name: ".ReviewerProfile__name a",
+        stars: ".ShelfStatus span",
+        text: ".ReviewText__content .Formatted",
+    },
+};
 
 // export const BookYeObj: TBookstoreConstant = {
 //     baseURL: "https://book-ye.com.ua",
@@ -144,7 +137,6 @@ export const shopFuncDependencies = {
 //     },
 // };
 
-
 // export const Knigoland: TBookstoreConstant = {
 //     baseURL: "https://knigoland.com.ua/",
 //     searchURL: "https://knigoland.com.ua/search?q=",
@@ -164,4 +156,3 @@ export const shopFuncDependencies = {
 //         //     ".side .base-product__price .ui-price-display__main .ui-price-display__currency",
 //     },
 // };
-

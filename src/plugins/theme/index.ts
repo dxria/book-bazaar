@@ -82,6 +82,22 @@ const theme = () => {
                     },
                 },
             },
+            MuiSelect: {
+                styleOverrides: {
+                    root: {
+                        borderColor: "rgba(var(--grey1), 1)",
+                        borderWidth: "1px",
+                        borderRadius: "10px",
+
+                        "&.Mui-focused": {
+                            "& .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "rgba(var(--red1), 1)",
+                                borderWidth: "2px",
+                            },
+                        },
+                    },
+                },
+            },
             MuiCssBaseline: {
                 styleOverrides: {
                     body: {
