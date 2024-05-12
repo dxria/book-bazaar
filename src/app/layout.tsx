@@ -5,7 +5,7 @@ import Header from "@components/Header";
 import Footer from "@components/Footer";
 
 export const metadata: Metadata = {
-    title: "Bookhunt",
+    title: "Book Bazaar",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <Provider>
-                <body style={{padding:"30px 70px"}}>
+                <body style={{ padding: "30px 70px" }}>
                     <Header />
                     <div>{children}</div>
                 </body>
