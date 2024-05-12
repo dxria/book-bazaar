@@ -1,7 +1,7 @@
 {
     "crons": [
         {
-            "path": ".src/app/api/updateTopBooks",
+            "path": "/src/app/api/updateTopBooks",
             "schedule": "0 1 * * *"
         }
     ]
