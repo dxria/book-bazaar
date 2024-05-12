@@ -25,7 +25,9 @@
             "@constants/*": ["./src/constants/*"],
             "@helpers/*": ["./src/helpers/*"],
             "@svg/*": ["./public/svg/*"],
-            "@png/*": ["./public/png/*"]
+            "@png/*": ["./public/png/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@prisma/*": ["./prisma/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

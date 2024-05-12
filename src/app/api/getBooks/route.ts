@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as cheerio from "cheerio";
-import { TBookstoreConstant, shopFuncDependencies } from "@constants/index";
-import { TBook } from "@plugins/types/booksTypes";
+import { shopFuncDependencies } from "@constants/index";
+import { TBook, TBookstoreConstant } from "@plugins/types/booksTypes";
 import { extractPriceAndCurrency } from "@helpers/extractPriceAndCurrency";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -36,7 +36,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
                                     foundUrls.push(elLink);
                                 } else {
                                     foundUrls.push(baseUrl.concat(elLink));
-                                 
                                 }
                             }
                         }

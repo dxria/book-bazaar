@@ -11,6 +11,12 @@ const nextConfig = {
             },
             {
                 protocol: "https",
+                hostname: "static.yakaboo.ua",
+                port: "",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
                 hostname: "i.gr-assets.com",
                 port: "",
                 pathname: "/**",

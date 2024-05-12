@@ -1,41 +1,11 @@
+"use client";
 import Link from "next/link";
 import NextImage from "next/image";
 import NoPhoto from "@png/no-photo.png";
 import MagnifyingGlassIcon from "@svg/magnifying-glass.svg";
 import { TPromo, TTopBook } from "@plugins/types/booksTypes";
-
-const topBooks: TTopBook[] = [
-    {
-        id: 1,
-        img: "https://book-ye.com.ua/upload/resize_cache/iblock/024/230_355_1/d2e255ce_9b5a_11ee_818f_00505684ea69_64d939df_c749_11ee_8192_00505684ea69.jpg",
-        title: "Майже хороші хлопці",
-        author: "Дар'я Чайка",
-    },
-    {
-        id: 2,
-        img: "https://book-ye.com.ua/upload/resize_cache/iblock/61c/230_355_1/441067fa_c5c1_11ee_8192_00505684ea69_9de37572_c751_11ee_8192_00505684ea69.jpg",
-        title: "Тіло, мій дім",
-        author: "Рупі Каур",
-    },
-    {
-        id: 3,
-        img: "https://book-ye.com.ua/upload/resize_cache/iblock/c37/230_355_1/42a71e9f_c4ea_11ee_8192_00505684ea69_de701068_c4eb_11ee_8192_00505684ea69.jpg",
-        title: "Полювання на Аделіну",
-        author: "Карлтон",
-    },
-    {
-        id: 4,
-        img: "https://book-ye.com.ua/upload/resize_cache/iblock/5ed/230_355_1/41e221d9_2faf_11ee_8187_00505684ea69_d1594a01_7a3a_11ee_818c_00505684ea69.jpg",
-        title: "Вавилон",
-        author: "Ребекка Кван",
-    },
-    {
-        id: 5,
-        img: "https://book-ye.com.ua/upload/resize_cache/iblock/5ed/230_355_1/41e221d9_2faf_11ee_8187_00505684ea69_d1594a01_7a3a_11ee_818c_00505684ea69.jpg",
-        title: "Вавилон",
-        author: "Ребекка Кван",
-    },
-];
+import { useBooksMutations } from "@components/hooks/useBooksMutations";
+import { useEffect } from "react";
 
 const promo: TPromo = {
     id: 1,
@@ -50,6 +20,12 @@ const promo: TPromo = {
 };
 
 export default function Home() {
+    const { getTop, topBooks, successGettingTopBooks } = useBooksMutations();
+
+    useEffect(() => {
+        getTop();
+    }, [getTop]);
+
     return (
         <main>
             <section
@@ -213,85 +189,88 @@ export default function Home() {
                     )}
                 </aside>
             </section>
-            <section
-                className="TopBooks"
-                style={{
-                    display: "flex",
-                    flexFlow: "column nowrap",
-                    gap: "30px",
-                }}>
-                <h2 style={{ margin: 0 }}>Найпопулярніші книги сьогодні</h2>
-                <div
+            {successGettingTopBooks && topBooks && (
+                <section
+                    className="TopBooks"
                     style={{
                         display: "flex",
+                        flexFlow: "column nowrap",
                         gap: "30px",
                     }}>
-                    {topBooks.map((book) => (
-                        <div
-                            key={book.id}
-                            style={{
-                                width: "290px",
-                                padding: "30px",
-                                display: "flex",
-                                flexFlow: "column nowrap",
-                                justifyContent: "space-between",
-                                backgroundColor: "rgba(var(--grey1), 1)",
-                                borderRadius: "12px",
-                            }}>
+                    <h2 style={{ margin: 0 }}>Найпопулярніші книги сьогодні</h2>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "30px",
+                        }}>
+                        {topBooks?.map((book) => (
                             <div
+                                key={book.id}
                                 style={{
+                                    width: "290px",
+                                    padding: "30px",
                                     display: "flex",
                                     flexFlow: "column nowrap",
-                                    marginBottom: "10px",
+                                    justifyContent: "space-between",
+                                    backgroundColor: "rgba(var(--grey1), 1)",
+                                    borderRadius: "12px",
                                 }}>
                                 <div
                                     style={{
+                                        display: "flex",
+                                        flexFlow: "column nowrap",
                                         marginBottom: "10px",
-                                        display: "flex",
-                                        justifyContent: "center",
                                     }}>
-                                    <NextImage
-                                        alt={book.title}
-                                        src={book.img || NoPhoto}
-                                        width={190}
-                                        height={280}
-                                        style={{ borderRadius: "12px" }}
-                                    />
+                                    <div
+                                        style={{
+                                            marginBottom: "10px",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                        }}>
+                                        <NextImage
+                                            alt={book.title}
+                                            src={book.img || NoPhoto}
+                                            width={190}
+                                            height={280}
+                                            style={{ borderRadius: "12px" }}
+                                        />
+                                    </div>
+                                    <h3 style={{ margin: 0 }}>{book.title}</h3>
+                                    <h5 style={{ margin: 0 }}>{book.author}</h5>
                                 </div>
-                                <h3 style={{ margin: 0 }}>{book.title}</h3>
-                                <h5 style={{ margin: 0 }}>{book.author}</h5>
-                            </div>
-                            <Link
-                                href={`/search?title=${book.title.toLowerCase()}`}
-                                style={{
-                                    color: "rgba(var(--white), 1)",
-                                    textDecoration: "none",
-                                }}>
-                                <div
+                                <Link
+                                    href={`/search?title=${book.title.toLowerCase()}`}
                                     style={{
-                                        backgroundColor: "rgba(var(--red1), 1)",
-                                        borderRadius: "12px",
-                                        padding: "8px 10px",
-                                        fontWeight: 500,
-                                        width: "fit-content",
                                         color: "rgba(var(--white), 1)",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "5px",
+                                        textDecoration: "none",
                                     }}>
-                                    <span style={{ fontSize: "14px" }}>
-                                        Шукати
-                                    </span>
-                                    <NextImage
-                                        alt="шукати"
-                                        src={MagnifyingGlassIcon}
-                                    />
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                                    <div
+                                        style={{
+                                            backgroundColor:
+                                                "rgba(var(--red1), 1)",
+                                            borderRadius: "12px",
+                                            padding: "8px 10px",
+                                            fontWeight: 500,
+                                            width: "fit-content",
+                                            color: "rgba(var(--white), 1)",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "5px",
+                                        }}>
+                                        <span style={{ fontSize: "14px" }}>
+                                            Шукати
+                                        </span>
+                                        <NextImage
+                                            alt="шукати"
+                                            src={MagnifyingGlassIcon}
+                                        />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
         </main>
     );
 }

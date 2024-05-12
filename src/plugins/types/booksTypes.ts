@@ -16,6 +16,12 @@ export type TTopBook = {
     author: string;
 };
 
+export type TTopBookToSave = {
+    img?: string;
+    title: string;
+    author: string;
+};
+
 export type TPromo = {
     id: number;
     url: string;
