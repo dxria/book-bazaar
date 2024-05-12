@@ -5,4 +5,10 @@ export const styles = {
             paddingRight: "0px !important",
         },
     },
+    button: {
+        whiteSpace: "nowrap",
+        width: "150px",
+        borderRadius: "8px",
+        margin: "5px",
+    },
 };

@@ -19,3 +19,8 @@ export async function getTopBooks() {
     const books = await axios.get("/api/getTopBooks");
     return books.data;
 }
+
+export async function getPromos() {
+    const books = await axios.get("/api/getPromos");
+    return books.data;
+}

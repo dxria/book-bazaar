@@ -1,6 +1,11 @@
-import { getBooks, getRatings, getTopBooks } from "@plugins/api/books";
+import {
+    getBooks,
+    getPromos,
+    getRatings,
+    getTopBooks,
+} from "@plugins/api/books";
 import { useMutation } from "@plugins/api/useMutation";
-import { TBook, TRating, TTopBook } from "@plugins/types/booksTypes";
+import { TBook, TPromo, TRating, TTopBook } from "@plugins/types/booksTypes";
 
 export function useBooksMutations() {
     const {
@@ -24,6 +29,13 @@ export function useBooksMutations() {
         isPending: gettingTopBooks,
     } = useMutation({ mutationFn: getTopBooks });
 
+    const {
+        mutate: getPromotions,
+        data: promosInfo,
+        isSuccess: successGettingPromotions,
+        isPending: gettingPromotions,
+    } = useMutation({ mutationFn: getPromos });
+
     return {
         scrapeBooks,
         booksInfo,
@@ -37,6 +49,10 @@ export function useBooksMutations() {
         topBooks,
         successGettingTopBooks,
         gettingTopBooks,
+        getPromotions,
+        promosInfo,
+        successGettingPromotions,
+        gettingPromotions,
     } as unknown as {
         scrapeBooks: (title: string) => void;
         booksInfo: TBook[];
@@ -50,5 +66,9 @@ export function useBooksMutations() {
         topBooks: TTopBook[];
         successGettingTopBooks: boolean;
         gettingTopBooks: boolean;
+        getPromotions: () => void;
+        promosInfo: TPromo[];
+        successGettingPromotions: boolean;
+        gettingPromotions: boolean;
     };
 }

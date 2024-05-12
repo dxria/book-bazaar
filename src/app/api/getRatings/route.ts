@@ -3,7 +3,7 @@ import * as cheerio from "cheerio";
 import { Goodreads } from "@constants/index";
 import { TRating, TReview } from "@plugins/types/booksTypes";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const { search }: { search: string } = await req.json();
         let counter = 0;

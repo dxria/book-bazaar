@@ -28,7 +28,6 @@ export type TPromo = {
     img?: string;
     title: string;
     description?: string;
-    activeTill?: string;
     bookshop: { name: string; image: string };
 };
 

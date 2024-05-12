@@ -4,7 +4,7 @@ import { shopFuncDependencies } from "@constants/index";
 import { TBook, TBookstoreConstant } from "@plugins/types/booksTypes";
 import { extractPriceAndCurrency } from "@helpers/extractPriceAndCurrency";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const { search }: { search: string } = await req.json();
         let counter = 0;

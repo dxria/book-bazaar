@@ -7,12 +7,17 @@ import { styles } from "./styles/SearchForm.style";
 
 export const SearchForm = () => {
     const router = useRouter();
-    const { handleSubmit, control } = useForm();
+    const { handleSubmit, control, reset } = useForm({
+        defaultValues: {
+            title: "",
+        },
+    });
 
     const onSubmit = (data: any) => {
         if (data.title) {
             router.push(`/search/?title=${data.title}`);
         }
+        reset();
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -36,13 +41,8 @@ export const SearchForm = () => {
                                 <Button
                                     type="submit"
                                     variant="contained"
-                                    sx={{
-                                        whiteSpace: "nowrap",
-                                        width: "150px",
-                                        borderRadius: "8px",
-                                        margin: "5px",
-                                    }}>
-                                    search title
+                                    sx={styles.button}>
+                                    шукати
                                 </Button>
                             ),
                         }}
