@@ -4,7 +4,7 @@ import {
     getRatings,
     getTopBooks,
 } from "@plugins/api/books";
-import { useMutation } from "@plugins/api/useMutation";
+import { useMutation, useQuery } from "@plugins/api/useMutation";
 import { TBook, TPromo, TRating, TTopBook } from "@plugins/types/booksTypes";
 
 export function useBooksMutations() {
@@ -22,13 +22,16 @@ export function useBooksMutations() {
         isPending: scrappingRating,
     } = useMutation({ mutationFn: getRatings });
 
-    const {
-        mutate: getTop,
-        data: topBooks,
-        isSuccess: successGettingTopBooks,
-        isPending: gettingTopBooks,
-    } = useMutation({ mutationFn: getTopBooks });
-
+    // const {
+    //     mutate: getTop,
+    //     data: topBooks,
+    //     isSuccess: successGettingTopBooks,
+    //     isPending: gettingTopBooks,
+    // } = useMutation({ mutationFn: getTopBooks});
+    const { data: topBooks, refetch: getTop, isSuccess: successGettingTopBooks } = useQuery({
+        queryFn: () => getTopBooks(),
+        queryKey: ["getTopBooks"],
+    });
     const {
         mutate: getPromotions,
         data: promosInfo,
@@ -48,7 +51,7 @@ export function useBooksMutations() {
         getTop,
         topBooks,
         successGettingTopBooks,
-        gettingTopBooks,
+        // gettingTopBooks,
         getPromotions,
         promosInfo,
         successGettingPromotions,
@@ -65,7 +68,7 @@ export function useBooksMutations() {
         getTop: () => void;
         topBooks: TTopBook[];
         successGettingTopBooks: boolean;
-        gettingTopBooks: boolean;
+        // gettingTopBooks: boolean;
         getPromotions: () => void;
         promosInfo: TPromo[];
         successGettingPromotions: boolean;

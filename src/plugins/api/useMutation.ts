@@ -1,9 +1,9 @@
 import {
     useMutation as useTanstackMutation,
-    // useQuery as useTanstackQuery,
+    useQuery as useTanstackQuery,
     type UseMutationOptions as UseTanstackMutationOptions,
-    // type UseQueryOptions as UseTanstackQueryOptions,
-    // type QueryKey,
+    type UseQueryOptions as UseTanstackQueryOptions,
+    type QueryKey,
 } from "@tanstack/react-query";
 // import type { AxiosError } from "axios";
 // import { enqueueSnackbar } from "@plugins/ui";
@@ -69,13 +69,14 @@ export function useMutation<
     });
 }
 
-// export function useQuery<
-//     TQueryFnData = unknown,
-//     TError = unknown,
-//     TData = TQueryFnData,
-//     TQueryKey extends QueryKey = QueryKey,
-// >(options: UseTanstackQueryOptions<TData, TError, TQueryFnData, TQueryKey>) {
-//     return useTanstackQuery({
-//         ...options,
-//     });
-// }
+
+export function useQuery<
+    TQueryFnData = unknown,
+    TError = unknown,
+    TData = TQueryFnData,
+    TQueryKey extends QueryKey = QueryKey,
+>(options: UseTanstackQueryOptions<TData, TError, TQueryFnData, TQueryKey>) {
+    return useTanstackQuery({
+        ...options,
+    });
+}
