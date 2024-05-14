@@ -31,6 +31,15 @@ export type TPromo = {
     bookshop: { name: string; image: string };
 };
 
+export type TPromoToSave = {
+    url: string;
+    img?: string;
+    title: string;
+    description: string;
+    bookshopName: string; 
+    bookshopImage: string ;
+};
+
 export type TReview = {
     id: number;
     img?: string;

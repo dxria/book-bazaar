@@ -13,3 +13,13 @@ model TopBooks {
   title    String
   author   String
 }
+
+model Promos {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  url      String
+  img      String?
+  title    String
+  description    String
+  bookshopName   String
+  bookshopImage  String
+}
