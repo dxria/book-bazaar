@@ -3,6 +3,10 @@
         {
             "path": "/src/app/api/updateTopBooks",
             "schedule": "0 1 * * *"
+        },
+        {
+            "path": "/src/app/api/updatePromos",
+            "schedule": "0 1 * * *"
         }
     ]
 }
