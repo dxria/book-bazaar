@@ -6,8 +6,13 @@ import {
 } from "@plugins/api/books";
 import { useMutation, useQuery } from "@plugins/api/useMutation";
 import { TBook, TPromo, TRating, TTopBook } from "@plugins/types/booksTypes";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useBooksMutations() {
+    const queryClient = useQueryClient();
+
+    queryClient.invalidateQueries();
+
     const {
         mutate: scrapeBooks,
         data: booksInfo,
@@ -22,22 +27,25 @@ export function useBooksMutations() {
         isPending: scrappingRating,
     } = useMutation({ mutationFn: getRatings });
 
-    // const {
-    //     mutate: getTop,
-    //     data: topBooks,
-    //     isSuccess: successGettingTopBooks,
-    //     isPending: gettingTopBooks,
-    // } = useMutation({ mutationFn: getTopBooks});
-    const { data: topBooks, refetch: getTop, isSuccess: successGettingTopBooks } = useQuery({
+    const {
+        data: topBooks,
+        refetch: getTop,
+        isSuccess: successGettingTopBooks,
+    } = useQuery({
         queryFn: () => getTopBooks(),
         queryKey: ["getTopBooks"],
     });
+
+    
     const {
-        mutate: getPromotions,
         data: promosInfo,
+        refetch: getPromotions,
         isSuccess: successGettingPromotions,
         isPending: gettingPromotions,
-    } = useMutation({ mutationFn: getPromos });
+    } = useQuery({
+        queryFn: () => getPromos(),
+        queryKey: ["getPromos"],
+    });
 
     return {
         scrapeBooks,
@@ -70,7 +78,7 @@ export function useBooksMutations() {
         successGettingTopBooks: boolean;
         // gettingTopBooks: boolean;
         getPromotions: () => void;
-        promosInfo: TPromo[];
+        promosInfo: TPromo;
         successGettingPromotions: boolean;
         gettingPromotions: boolean;
     };

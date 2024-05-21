@@ -30,10 +30,6 @@ const theme = () => {
                             "&:hover": {
                                 backgroundColor: "rgba(var(--red1), 0.7)",
                             },
-                            // "&.Mui-disabled": {
-                            //     background: "rgba(var(--grey4), 1)",
-                            //     color: "rgba(var(--grey1), 1)",
-                            // },
                         }),
                         ...(ownerState.variant === "text" && {
                             boxShadow: "none",

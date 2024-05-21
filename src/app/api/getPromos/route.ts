@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { TPromo } from "@plugins/types/booksTypes";
 import ConnectToDB from "@utils/db-connection";
 import prisma from "@utils/prisma-client";
 
@@ -8,20 +9,24 @@ export async function GET() {
 
         const promos = await prisma.promos.findMany({});
 
-        const sortedPromos = promos.map((promo) => {
-            return {
+        const groupedPromos: TPromo = {};
+
+        promos.forEach((promo: any) => {
+            const promoData = {
                 id: promo.id,
                 url: promo.url,
                 img: promo.img,
                 title: promo.title,
                 description: promo.description,
-                bookshop: {
-                    name: promo.bookshopName,
-                    image: promo.bookshopImage,
-                },
             };
+
+            if (!groupedPromos[promo.bookshopName]) {
+                groupedPromos[promo.bookshopName] = [];
+            }
+
+            groupedPromos[promo.bookshopName].push(promoData);
         });
-        return NextResponse.json(sortedPromos, { status: 200 });
+        return NextResponse.json(groupedPromos, { status: 200 });
     } catch (error) {
         return NextResponse.json({ message: error }, { status: 500 });
     }

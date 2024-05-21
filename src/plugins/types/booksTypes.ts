@@ -22,13 +22,14 @@ export type TTopBookToSave = {
     author: string;
 };
 
-export type TPromo = {
+export type TPromo = Record<string, TPromoObj[]>;
+
+export type TPromoObj = {
     id: number;
     url: string;
     img?: string;
     title: string;
     description?: string;
-    bookshop: { name: string; image: string };
 };
 
 export type TPromoToSave = {

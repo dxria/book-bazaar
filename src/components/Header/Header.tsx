@@ -8,12 +8,21 @@ import { styles } from "./style/Header.style";
 export default function Header() {
     return (
         <header style={styles.header}>
-            <div style={styles.logo}>
-                <NextImage alt="" src={Logo} />
-                <Link href="/" style={styles.text}>
-                    BookBazaar
+            <nav style={styles.navigation}>
+                <div style={styles.logo}>
+                    <NextImage alt="" src={Logo} />
+                    <Link href="/" style={styles.text}>
+                        BookBazaar
+                    </Link>
+                </div>
+                <Link href="/about" style={styles.text}>
+                    <div>Про проект</div>
                 </Link>
-            </div>
+                <Link href="/promo" style={styles.text}>
+                    <div>Акційні пропозиції</div>
+                </Link>
+            </nav>
+
             <SearchForm />
         </header>
     );

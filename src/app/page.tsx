@@ -10,18 +10,6 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
-const promo: TPromo = {
-    id: 1,
-    url: "https://book-ye.com.ua/news/vyhraj-maksymalnu-znyzhku-do-50/",
-    title: "Виграй максимальну знижку до -50%",
-    img: "https://book-ye.com.ua/upload/iblock/edb/350kh185_22_.png",
-    // activeTill: "19 ДНІВ 21год. 42хв. 46сек.",
-    bookshop: {
-        name: "Книгарня Є",
-        image: "https://book-ye.com.ua/local/templates/book_ye/images/components/header-logo.png",
-    },
-};
-
 export default function Home() {
     const {
         getTop,
@@ -78,7 +66,7 @@ export default function Home() {
                         </div>
                     </Box>
                 </Box>
-                {promosInfo && <PromoBlock promo={promosInfo[0]} />}
+                {promosInfo && <PromoBlock promo={promosInfo} />}
             </Box>
             {successGettingTopBooks && topBooks && (
                 <TopBooksBlock topBooks={topBooks} />
