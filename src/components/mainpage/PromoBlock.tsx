@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { styles } from "./style/PromoBlock.style";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 type PromoBlockProps = {
     promo: TPromo;
@@ -21,14 +22,14 @@ const PromoBlock: React.FC<PromoBlockProps> = ({ promo }) => {
             {promotion && (
                 <aside style={styles.aside}>
                     <div style={styles.card}>
-                        <div style={styles.imgBox}>
+                        <Box sx={styles.imgBox}>
                             <img
                                 src={promotion.img}
                                 alt={promotion.title}
                                 width="300px"
                                 style={styles.imgBox.img}
                             />
-                        </div>
+                        </Box>
                         <div style={styles.infoBox}>
                             <div style={styles.infoBox.inner}>
                                 <h4 style={styles.infoBox.inner.h4}>

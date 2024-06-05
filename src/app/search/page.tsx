@@ -1,14 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useBooksMutations } from "@components/hooks/useBooksMutations";
-import NextImage from "next/image";
-import StarMark from "@svg/star-mark.svg";
+
 import { SortArray } from "@helpers/sort";
 import { FilterType, TBook } from "@plugins/types/booksTypes";
 import Reviews from "@components/searchpage/Reviews";
 import BooksList from "@components/searchpage/BooksList";
 import { SelectChangeEvent } from "@mui/material";
 import { styles } from "@components/searchpage/style/Page.style";
+import GoodreadsRating from "@components/searchpage/GoodreadsRating";
+import Genres from "@components/searchpage/Genres";
 
 export default function Page({
     searchParams,
@@ -77,63 +78,8 @@ export default function Page({
                         className="search_results"
                         style={styles.searchResults}>
                         <div style={styles.searchResults.aside}>
-                            <div>
-                                <p style={styles.searchResults.aside.title}>
-                                    Оцінка на Goodreads{" "}
-                                    {ratingInfo
-                                        ? `: ${ratingInfo?.stars}` || ""
-                                        : ""}
-                                </p>
-                                {ratingInfo?.stars ? (
-                                    <div
-                                        style={
-                                            styles.searchResults.aside
-                                                .blockContent
-                                        }>
-                                        {[
-                                            ...Array(
-                                                Math.floor(
-                                                    Number(ratingInfo.stars),
-                                                ),
-                                            ),
-                                        ].map((_, index) => (
-                                            <NextImage
-                                                key={index}
-                                                alt=""
-                                                src={StarMark}
-                                            />
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <i>Інформація про оцінку відсутня</i>
-                                )}
-                            </div>
-                            <div>
-                                <p style={styles.searchResults.aside.title}>
-                                    Жанри
-                                </p>
-                                {ratingInfo?.genres &&
-                                ratingInfo?.genres.length > 0 ? (
-                                    <div
-                                        style={
-                                            styles.searchResults.aside
-                                                .genresBlock
-                                        }>
-                                        {ratingInfo?.genres.map((genre) => (
-                                            <div
-                                                key={genre}
-                                                style={
-                                                    styles.searchResults.aside
-                                                        .genres
-                                                }>
-                                                {genre}
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <i>Інформація про жанри відсутня</i>
-                                )}
-                            </div>
+                            <GoodreadsRating ratingInfo={ratingInfo} />
+                            <Genres ratingInfo={ratingInfo} />
                         </div>
                         <BooksList
                             books={books}

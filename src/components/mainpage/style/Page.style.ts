@@ -6,6 +6,10 @@ export const styles = {
         flexFlow: "column nowrap",
         "@media screen and (min-width: 700px)": {
             flexFlow: "row nowrap",
+            margin: "80px 0px",
+        },
+        "@media screen and (min-width: 1700px)": {
+            flexFlow: "row nowrap",
             margin: "100px 0px",
         },
     },
@@ -16,6 +20,10 @@ export const styles = {
         gap: "20px",
         lineHeight: 1.4,
         "@media screen and (min-width: 700px)": {
+            gap: "30px",
+            width: "65%",
+        },
+        "@media screen and (min-width: 1700px)": {
             gap: "40px",
             width: "65%",
         },
@@ -26,6 +34,10 @@ export const styles = {
         fontWeight: 600,
         textAlign: "center",
         "@media screen and (min-width: 700px)": {
+            fontSize: "48px",
+            textAlign: "left",
+        },
+        "@media screen and (min-width: 1700px)": {
             fontSize: "56px",
             textAlign: "left",
         },
@@ -76,6 +88,9 @@ export const styles = {
                 fontWeight: 500,
                 whiteSpace: "nowrap",
                 "@media screen and (min-width: 700px)": {
+                    fontSize: "20px",
+                },
+                "@media screen and (min-width: 1700px)": {
                     fontSize: "24px",
                 },
             },

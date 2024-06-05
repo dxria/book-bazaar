@@ -12,10 +12,13 @@ export const styles = {
         backgroundColor: "rgba(var(--grey1), 1)",
         padding: "30px",
         display: "flex",
-        minHeight: "400px",
+        minHeight: "300px",
         justifyContent: "center",
         alignItems: "center",
         img: { borderRadius: "12px" },
+        "@media screen and (min-width: 1700px)": {
+            minHeight: "400px",
+        },
     },
 
     infoBox: {
